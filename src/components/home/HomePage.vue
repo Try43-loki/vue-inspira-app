@@ -1,127 +1,40 @@
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { categories, childrenTraining, howItWorksSteps, nearbyVenues, partnerNames, recommendedTraining } from '../../data/home'
 import CategoryChips from './CategoryChips.vue'
 import ContentSection from './ContentSection.vue'
 import HeroBanner from './HeroBanner.vue'
+import HowItWorksStrip from './HowItWorksStrip.vue'
 import PartnerGrid from './PartnerGrid.vue'
 import SearchFilterBar from './SearchFilterBar.vue'
 import VenueCtaBanner from './VenueCtaBanner.vue'
 
 const filters = reactive({
-  price: '',
+  minPrice: '',
+  maxPrice: '',
   location: '',
   date: '',
 })
 
 const activeCategory = ref('All')
+const isLoading = ref(true)
 const searchSummary = ref('Showing curated recommendations for all categories.')
 
-const categories = ['All', 'Football', 'Basketball', 'Yoga', 'Dance', 'Swimming', 'Outdoor']
+const filterByCategory = (items) => (activeCategory.value === 'All'
+  ? items
+  : items.filter((item) => item.category === activeCategory.value))
 
-const recommendedTraining = [
-  {
-    title: 'Weekend Football Camp',
-    label: 'Featured',
-    location: 'Bandung',
-    price: '$38',
-    description: 'A two-day skill clinic focused on game awareness, movement, and teamwork.',
-  },
-  {
-    title: 'Sunrise Yoga Session',
-    label: 'Popular',
-    location: 'Jakarta',
-    price: '$20',
-    description: 'Gentle guided practice designed for beginners looking for balance and recovery.',
-  },
-  {
-    title: 'Indoor Climbing Basics',
-    label: 'New',
-    location: 'Bogor',
-    price: '$29',
-    description: 'Try climbing techniques with beginner-friendly coaching in a safe venue.',
-  },
-  {
-    title: 'Dance Cardio Night',
-    label: 'Trending',
-    location: 'Depok',
-    price: '$17',
-    description: 'Move through a playful cardio set in a high-energy studio environment.',
-  },
-]
+const filteredRecommendedTraining = computed(() => filterByCategory(recommendedTraining))
+const filteredChildrenTraining = computed(() => filterByCategory(childrenTraining))
+const filteredNearbyVenues = computed(() => filterByCategory(nearbyVenues))
 
-const childrenTraining = [
-  {
-    title: 'Junior Tennis Club',
-    label: 'Kids',
-    location: 'South Jakarta',
-    price: '$26',
-    description: 'Foundational tennis lessons with small groups and playful coaching activities.',
-  },
-  {
-    title: 'Creative Movement Class',
-    label: 'Ages 5-8',
-    location: 'Cimahi',
-    price: '$19',
-    description: 'Rhythm, coordination, and confidence building through fun movement games.',
-  },
-  {
-    title: 'Beginner Swim School',
-    label: 'Safe start',
-    location: 'Bekasi',
-    price: '$22',
-    description: 'Supportive water classes for children who are learning pool safety and strokes.',
-  },
-  {
-    title: 'Kids Futsal Evening',
-    label: 'Team play',
-    location: 'Tangerang',
-    price: '$18',
-    description: 'Structured futsal practice with drills, mini matches, and coaching feedback.',
-  },
-]
-
-const nearbyVenues = [
-  {
-    title: 'Green Park Arena',
-    label: 'Venue',
-    location: '8 km away',
-    price: 'Open',
-    description: 'Multi-use courts with bright indoor lighting and flexible family schedules.',
-  },
-  {
-    title: 'The Loft Studio',
-    label: 'Venue',
-    location: '5 km away',
-    price: 'Today',
-    description: 'Modern studio space for dance, wellness, and group-based community sessions.',
-  },
-  {
-    title: 'Riverside Hall',
-    label: 'Venue',
-    location: '11 km away',
-    price: 'Weekend',
-    description: 'Large event hall with partner-friendly packages for classes and pop-up events.',
-  },
-  {
-    title: 'Summit Sports Hub',
-    label: 'Venue',
-    location: '4 km away',
-    price: 'Book now',
-    description: 'Flexible indoor venue with training zones, waiting lounge, and parking access.',
-  },
-]
-
-const partnerNames = ['Luma Center', 'North Court', 'Daily Move', 'Fresh Arena', 'Rise Hall', 'Bloom Space', 'City Gym', 'Oak Studio']
-
-const filteredRecommendedTraining = computed(() => {
-  if (activeCategory.value === 'All') {
-    return recommendedTraining
-  }
-
-  return recommendedTraining.filter((item) => item.title.toLowerCase().includes(activeCategory.value.toLowerCase()))
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false
+  }, 600)
 })
 
-// Reuse the current inputs as a lightweight mock search summary for the homepage.
+// Build a concise inline summary from active fields to keep interactions clear and lightweight.
 function handleSearch(currentFilters) {
   const selectedValues = Object.values(currentFilters).filter(Boolean)
   searchSummary.value = selectedValues.length
@@ -131,7 +44,7 @@ function handleSearch(currentFilters) {
 </script>
 
 <template>
-  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-4 pb-8 pt-2 sm:px-6 lg:px-10 lg:gap-10">
+  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-4 pb-10 pt-3 sm:px-6 lg:gap-10 lg:px-10">
     <SearchFilterBar :model-value="filters" @update:model-value="Object.assign(filters, $event)" @search="handleSearch" />
 
     <section class="space-y-4">
@@ -145,22 +58,27 @@ function handleSearch(currentFilters) {
       cta-label="Start exploring"
     />
 
+    <HowItWorksStrip :steps="howItWorksSteps" />
+
     <ContentSection
       title="Recommended training"
       subtitle="Fresh picks selected from our most booked activities this week."
       :items="filteredRecommendedTraining"
+      :loading="isLoading"
     />
 
     <ContentSection
       title="Training for children"
       subtitle="Supportive classes and active experiences made for younger learners."
-      :items="childrenTraining"
+      :items="filteredChildrenTraining"
+      :loading="isLoading"
     />
 
     <ContentSection
       title="Venues near me"
       subtitle="Nearby spaces with easy scheduling and partner-ready facilities."
-      :items="nearbyVenues"
+      :items="filteredNearbyVenues"
+      :loading="isLoading"
     />
 
     <VenueCtaBanner />

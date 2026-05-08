@@ -21,24 +21,18 @@ const emit = defineEmits(['update:modelValue', 'menu-click', 'login-click'])
 </script>
 
 <template>
-  <header class="sticky top-0 z-20 px-4 py-4 sm:px-6 lg:px-10">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-[32px] border border-white/70 bg-white/75 px-5 py-4 shadow-soft backdrop-blur-md">
-      <div class="min-w-0">
-        <p class="text-lg font-semibold text-ink sm:text-xl">{{ brand }}</p>
-      </div>
+  <header class="sticky top-0 z-30 border-b border-stone-200/80 bg-[#fbf7f1]/80 px-4 py-3 backdrop-blur-md sm:px-6 lg:px-10">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
+      <p class="text-lg font-semibold text-ink sm:text-xl">{{ brand }}</p>
 
-      <div class="hidden flex-1 justify-center lg:flex">
+      <div class="order-3 w-full lg:order-none lg:flex lg:w-auto lg:flex-1 lg:justify-center">
         <UiTabs :items="tabs" :model-value="modelValue" @update:model-value="emit('update:modelValue', $event)" />
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <UiButton variant="outline" size="sm" @click="emit('login-click')">Login</UiButton>
         <UiButton variant="default" size="sm" @click="emit('menu-click')">Menu</UiButton>
       </div>
-    </div>
-
-    <div class="mt-3 flex justify-center lg:hidden">
-      <UiTabs :items="tabs" :model-value="modelValue" @update:model-value="emit('update:modelValue', $event)" />
     </div>
   </header>
 </template>

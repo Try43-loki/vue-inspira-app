@@ -1,5 +1,7 @@
 <script setup>
-import TrainingCard from './TrainingCard.vue'
+import ListingCard from '../common/ListingCard.vue'
+import SectionHeader from '../common/SectionHeader.vue'
+import SkeletonCard from '../common/SkeletonCard.vue'
 
 defineProps({
   title: {
@@ -14,22 +16,29 @@ defineProps({
     type: Array,
     default: () => [],
   },
+  loading: Boolean,
 })
 </script>
 
 <template>
   <section class="space-y-5">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <h2 class="text-2xl font-semibold text-ink">{{ title }}</h2>
-        <p v-if="subtitle" class="mt-2 text-sm text-stone-600">{{ subtitle }}</p>
-      </div>
-      <button type="button" class="text-sm font-semibold text-brand-dark">See all</button>
-    </div>
+    <SectionHeader :title="title" :subtitle="subtitle" />
 
     <div class="overflow-x-auto pb-2">
       <div class="flex gap-4">
-        <TrainingCard v-for="item in items" :key="item.title" :item="item" />
+        <template v-if="loading">
+          <SkeletonCard v-for="card in 4" :key="card" />
+        </template>
+        <template v-else>
+          <ListingCard
+            v-for="item in items"
+            :key="item.title"
+            :title="item.title"
+            :subtitle="item.subtitle"
+            :price="item.price"
+            :badges="item.badges"
+          />
+        </template>
       </div>
     </div>
   </section>

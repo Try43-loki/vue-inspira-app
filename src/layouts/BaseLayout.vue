@@ -23,7 +23,7 @@ const emit = defineEmits(['update:activeTab'])
 <template>
   <div class="min-h-screen bg-[linear-gradient(180deg,#fbf7f1_0%,#f5ede2_100%)] text-ink">
     <AppNavbar :tabs="navTabs" :model-value="activeTab" @update:model-value="emit('update:activeTab', $event)" />
-    <main>
+    <main class="pt-4 sm:pt-6">
       <slot />
     </main>
     <AppFooter :columns="footerColumns" />
