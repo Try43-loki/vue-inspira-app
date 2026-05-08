@@ -15,6 +15,10 @@ defineProps({
     type: String,
     default: 'Browse listings',
   },
+  stats: {
+    type: Array,
+    default: () => [],
+  },
 })
 </script>
 
@@ -35,6 +39,12 @@ defineProps({
         </div>
         <div class="flex flex-wrap gap-3 pt-2">
           <UiButton size="lg">{{ ctaLabel }}</UiButton>
+        </div>
+        <div v-if="stats.length" class="flex flex-wrap gap-6 border-t border-stone-200/60 pt-5">
+          <div v-for="stat in stats" :key="stat.label" class="space-y-0.5">
+            <p class="text-xl font-semibold text-ink">{{ stat.value }}</p>
+            <p class="text-xs text-stone-500">{{ stat.label }}</p>
+          </div>
         </div>
       </div>
 

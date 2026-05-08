@@ -39,6 +39,10 @@ const emit = defineEmits(['see-all'])
             :subtitle="item.subtitle"
             :price="item.price"
             :badges="item.badges"
+            :category="item.category"
+            :rating="item.rating ?? null"
+            :reviews="item.reviews ?? null"
+            :duration="item.duration ?? ''"
           />
         </template>
       </div>

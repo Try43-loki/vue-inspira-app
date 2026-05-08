@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { categories, childrenTraining, howItWorksSteps, nearbyVenues, partnerNames, recommendedTraining } from '../../data/home'
+import { categories, childrenTraining, heroStats, howItWorksSteps, nearbyVenues, partnerNames, recommendedTraining } from '../../data/home'
 import CategoryChips from './CategoryChips.vue'
 import ContentSection from './ContentSection.vue'
 import HeroBanner from './HeroBanner.vue'
@@ -58,6 +58,7 @@ function handleSearch(currentFilters) {
       title="Find inspiring training, venues, and partner spaces for every routine"
       description="Browse curated activities, discover family-friendly programs, and connect with venues that fit your schedule with a calmer, cleaner booking experience."
       cta-label="Start exploring"
+      :stats="heroStats"
     />
 
     <HowItWorksStrip :steps="howItWorksSteps" />
