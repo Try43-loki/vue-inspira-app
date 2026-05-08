@@ -53,20 +53,7 @@ function updateField(field, value) {
 function applyQuickFilter(filter) {
   const nextFilter = activeQuickFilter.value === filter ? '' : filter
   activeQuickFilter.value = nextFilter
-
-  const updates = {
-    minPrice: props.modelValue.minPrice,
-    date: props.modelValue.date,
-    maxPrice: props.modelValue.maxPrice,
-    location: props.modelValue.location,
-  }
-
-  Object.assign(updates, quickFilterUpdates[nextFilter] || {})
-
-  emit('update:modelValue', {
-    ...props.modelValue,
-    ...updates,
-  })
+  emit('update:modelValue', { ...props.modelValue, ...(quickFilterUpdates[nextFilter] || {}) })
 }
 
 function submitSearch() {

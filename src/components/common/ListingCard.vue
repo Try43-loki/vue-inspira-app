@@ -70,7 +70,8 @@ const imageBg = categoryGradients[props.category] ?? 'linear-gradient(135deg,#ee
     <div class="space-y-1.5">
       <h3 class="text-base font-semibold leading-snug text-ink">{{ title }}</h3>
       <div v-if="rating !== null" class="flex items-center gap-1.5 text-xs text-stone-500">
-        <span class="font-semibold text-amber-500">★ {{ rating.toFixed(1) }}</span>
+        <span aria-hidden="true" class="font-semibold text-amber-500">★ {{ rating.toFixed(1) }}</span>
+        <span class="sr-only">Rating: {{ rating.toFixed(1) }}</span>
         <span v-if="reviews !== null">({{ reviews.toLocaleString() }} reviews)</span>
       </div>
     </div>
