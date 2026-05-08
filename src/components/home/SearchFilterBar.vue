@@ -23,7 +23,11 @@ const priceValidationMessage = computed(() => {
   const min = Number(props.modelValue.minPrice)
   const max = Number(props.modelValue.maxPrice)
 
-  if (Number.isNaN(min) || Number.isNaN(max) || min <= max) {
+  if (Number.isNaN(min) || Number.isNaN(max)) {
+    return 'Please enter valid numbers for both price fields.'
+  }
+
+  if (min <= max) {
     return ''
   }
 
