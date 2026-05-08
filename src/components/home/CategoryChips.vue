@@ -12,18 +12,26 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'select'])
+
+function selectCategory(category) {
+  emit('update:modelValue', category)
+  emit('select', category)
+}
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-3">
-    <UiBadge
-      v-for="category in categories"
-      :key="category"
-      :active="category === modelValue"
-      @click="emit('update:modelValue', category)"
-    >
-      {{ category }}
-    </UiBadge>
+  <div class="overflow-x-auto pb-1">
+    <div class="flex min-w-max gap-3">
+      <UiBadge
+        v-for="category in categories"
+        :key="category"
+        :active="category === modelValue"
+        class="focus-visible:ring-2 focus-visible:ring-brand/30"
+        @click="selectCategory(category)"
+      >
+        {{ category }}
+      </UiBadge>
+    </div>
   </div>
 </template>
