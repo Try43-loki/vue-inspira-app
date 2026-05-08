@@ -9,6 +9,8 @@ import PartnerGrid from './PartnerGrid.vue'
 import SearchFilterBar from './SearchFilterBar.vue'
 import VenueCtaBanner from './VenueCtaBanner.vue'
 
+const SKELETON_LOADING_DURATION = 600
+
 const filters = reactive({
   minPrice: '',
   maxPrice: '',
@@ -31,7 +33,7 @@ const filteredNearbyVenues = computed(() => filterByCategory(nearbyVenues))
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false
-  }, 600)
+  }, SKELETON_LOADING_DURATION)
 })
 
 // Build a concise inline summary from active fields to keep interactions clear and lightweight.
