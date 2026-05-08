@@ -18,11 +18,13 @@ defineProps({
   },
   loading: Boolean,
 })
+
+const emit = defineEmits(['see-all'])
 </script>
 
 <template>
   <section class="space-y-5">
-    <SectionHeader :title="title" :subtitle="subtitle" />
+    <SectionHeader :title="title" :subtitle="subtitle" @action-click="emit('see-all')" />
 
     <div class="overflow-x-auto pb-2">
       <div class="flex gap-4">

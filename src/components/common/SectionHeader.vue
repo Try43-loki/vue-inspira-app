@@ -13,6 +13,8 @@ defineProps({
     default: 'See all',
   },
 })
+
+const emit = defineEmits(['action-click'])
 </script>
 
 <template>
@@ -24,6 +26,7 @@ defineProps({
     <button
       type="button"
       class="rounded-full border border-stone-200 px-4 py-2 text-sm font-medium text-stone-700 transition hover:border-brand/50 hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
+      @click="emit('action-click')"
     >
       {{ actionText }}
     </button>

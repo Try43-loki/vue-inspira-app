@@ -115,7 +115,15 @@ function submitSearch() {
           @update:model-value="updateField('date', $event)"
         />
 
-        <UiButton class="self-stretch lg:self-auto" size="lg" :disabled="Boolean(priceValidationMessage)" @click="submitSearch">Search</UiButton>
+        <UiButton
+          class="self-stretch lg:self-auto"
+          size="lg"
+          :disabled="Boolean(priceValidationMessage)"
+          :title="priceValidationMessage || 'Search listings'"
+          @click="submitSearch"
+        >
+          Search
+        </UiButton>
       </div>
 
       <div class="space-y-2">
