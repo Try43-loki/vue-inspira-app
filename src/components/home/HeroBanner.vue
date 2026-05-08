@@ -13,35 +13,34 @@ defineProps({
   },
   ctaLabel: {
     type: String,
-    default: 'Explore now',
+    default: 'Browse listings',
   },
 })
 </script>
 
 <template>
-  <UiCard tone="accent" padding="lg" class="overflow-hidden">
-    <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-      <div class="space-y-5">
+  <UiCard tone="accent" padding="lg" class="overflow-hidden rounded-[34px]">
+    <div class="grid gap-10 lg:min-h-[430px] lg:grid-cols-[1.08fr_0.92fr] lg:items-end lg:gap-14">
+      <div class="space-y-6 pb-2">
         <p class="inline-flex rounded-full border border-brand/20 bg-white/70 px-4 py-2 text-sm font-medium text-brand-dark">
           Trusted by local partners
         </p>
         <div class="space-y-3">
-          <h1 class="max-w-xl text-4xl font-semibold leading-tight text-ink sm:text-5xl">
+          <h1 class="max-w-xl text-5xl font-semibold leading-[1.1] text-ink sm:text-6xl">
             {{ title }}
           </h1>
-          <p class="max-w-xl text-base leading-7 text-stone-600 sm:text-lg">
+          <p class="max-w-lg text-base leading-7 text-stone-600 sm:text-lg">
             {{ description }}
           </p>
         </div>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3 pt-2">
           <UiButton size="lg">{{ ctaLabel }}</UiButton>
-          <UiButton variant="light" size="lg">View partner plans</UiButton>
         </div>
       </div>
 
-      <div class="relative min-h-72 rounded-[32px] border border-white/80 bg-white/70 p-4 shadow-soft">
+      <div class="relative ml-auto min-h-72 w-full max-w-[470px] rounded-[32px] border border-white/80 bg-white/70 p-4 shadow-soft">
         <div class="absolute inset-0 bg-grid-stone-300/40 opacity-30"></div>
-        <div class="relative flex h-full min-h-64 flex-col justify-between rounded-[28px] bg-[linear-gradient(145deg,#fefaf4,#eadfce)] p-6">
+        <div class="relative flex h-full min-h-[320px] flex-col justify-between rounded-[28px] bg-[linear-gradient(145deg,#fefaf4,#eadfce)] p-5 sm:p-6">
           <div class="grid grid-cols-2 gap-4">
             <div class="rounded-[24px] bg-white/85 p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-stone-400">Partner venue</p>
