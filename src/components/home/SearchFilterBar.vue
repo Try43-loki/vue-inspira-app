@@ -27,11 +27,11 @@ const priceValidationMessage = computed(() => {
     return 'Please enter valid numbers for both price fields.'
   }
 
-  if (min <= max) {
-    return ''
+  if (min > max) {
+    return 'Minimum price should be less than or equal to maximum price.'
   }
 
-  return 'Minimum price should be less than or equal to maximum price.'
+  return ''
 })
 
 function updateField(field, value) {
@@ -41,7 +41,7 @@ function updateField(field, value) {
   })
 }
 
-// Apply a lightweight mock quick filter behavior so users can preview instant filtering interactions.
+// Apply quick filter presets to the current search form values for lightweight interactions.
 function applyQuickFilter(filter) {
   const nextFilter = activeQuickFilter.value === filter ? '' : filter
   activeQuickFilter.value = nextFilter
@@ -87,6 +87,7 @@ function submitSearch() {
               placeholder="Min"
               type="number"
               min="0"
+              :aria-describedby="priceValidationMessage ? 'price-range-error' : undefined"
               :model-value="modelValue.minPrice"
               @update:model-value="updateField('minPrice', $event)"
             />
@@ -94,11 +95,12 @@ function submitSearch() {
               placeholder="Max"
               type="number"
               min="0"
+              :aria-describedby="priceValidationMessage ? 'price-range-error' : undefined"
               :model-value="modelValue.maxPrice"
               @update:model-value="updateField('maxPrice', $event)"
             />
           </div>
-          <p v-if="priceValidationMessage" class="text-xs text-red-600">{{ priceValidationMessage }}</p>
+          <p v-if="priceValidationMessage" id="price-range-error" class="text-xs text-red-600">{{ priceValidationMessage }}</p>
         </div>
 
         <UiInput
