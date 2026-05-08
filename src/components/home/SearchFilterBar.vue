@@ -5,7 +5,13 @@ import UiCard from '../ui/UiCard.vue'
 import UiInput from '../ui/UiInput.vue'
 import { quickFilters } from '../../data/home'
 
-const QUICK_FILTER_MAX_PRICE = '20'
+const QUICK_FILTER_UNDER_20_PRICE = '20'
+const quickFilterUpdates = {
+  Today: { date: 'Today' },
+  'This Weekend': { date: 'This Weekend' },
+  'Under $20': { maxPrice: QUICK_FILTER_UNDER_20_PRICE },
+  'Near me': { location: 'Near me' },
+}
 
 const props = defineProps({
   modelValue: {
@@ -55,15 +61,7 @@ function applyQuickFilter(filter) {
     location: props.modelValue.location,
   }
 
-  if (nextFilter === 'Today') {
-    updates.date = 'Today'
-  } else if (nextFilter === 'This Weekend') {
-    updates.date = 'This Weekend'
-  } else if (nextFilter === 'Under $20') {
-    updates.maxPrice = QUICK_FILTER_MAX_PRICE
-  } else if (nextFilter === 'Near me') {
-    updates.location = 'Near me'
-  }
+  Object.assign(updates, quickFilterUpdates[nextFilter] || {})
 
   emit('update:modelValue', {
     ...props.modelValue,
