@@ -121,7 +121,6 @@ function submitSearch() {
           class="self-stretch lg:self-auto"
           size="lg"
           :disabled="Boolean(priceValidationMessage)"
-          :title="priceValidationMessage || 'Search listings'"
           @click="submitSearch"
         >
           Search
